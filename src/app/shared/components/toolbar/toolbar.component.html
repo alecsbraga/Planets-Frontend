@@ -1,0 +1,11 @@
+<div class="toolbar">
+    <span>{{title}}</span>
+    <button mat-raised-button type='button' *ngIf=" (isLogIn$ | async) === false" (click)='login()'>
+        <mat-icon>arrow_forward</mat-icon>
+        Login
+    </button>
+    <button mat-raised-button type='button' *ngIf=" (isLogIn$ | async) === true" (click)='logout()'>
+        <mat-icon>arrow_back</mat-icon>
+        Logout
+    </button>
+</div>

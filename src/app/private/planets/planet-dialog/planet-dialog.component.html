@@ -1,0 +1,60 @@
+<div class='container'>
+    <h2 mat-dialog-title>
+        {{pageTitle}}
+    </h2>
+    <mat-dialog-content>
+        <form [formGroup]='planetForm' novalidate appearance="fill" class='container'>
+            <mat-form-field floatLabel='always'>
+                <mat-label>Status</mat-label>
+                <mat-select [formControl]='statusControl'>
+                    <mat-option *ngFor='let statusType of statusTypes' [value]='statusType'>
+                        {{statusType}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="statusControl.hasError('required')">
+                    Required
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field floatLabel="always">
+                <mat-label>Description</mat-label>
+                <textarea matInput type='text' rows='4' [formControl]="descriptionControl"></textarea>
+                <mat-error *ngIf="descriptionControl.hasError('required')">
+                    Required
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field  *ngIf="filteredRobots$ | async as filteredRobot">
+                <mat-label>Your robots</mat-label>
+                <mat-chip-grid #chipGrid aria-label="Robots selection">
+                  <mat-chip-row *ngFor="let robot of robotsSelected$ | async" (removed)="remove(robot, filteredRobot)">
+                    {{robot.name}}
+                    <button matChipRemove [attr.aria-label]="'remove ' + robot.name">
+                      <mat-icon>cancel</mat-icon>
+                    </button>
+                  </mat-chip-row>
+                </mat-chip-grid>
+                <input placeholder="Add Robot..." #robotInput [formControl]="searchRobot"
+                  [matChipInputFor]="chipGrid" [matAutocomplete]="auto"
+                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                  (matChipInputTokenEnd)="add($event)"/>
+                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                  <mat-option *ngFor="let robot of filteredRobots$ | async" [value]="robot">
+                    {{robot.name}}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+
+        </form>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+    <button mat-raised-button type='button' color='primary' (click)='submit()'>
+      <mat-icon>done</mat-icon>
+      Save
+    </button>
+    <button mat-stroked-button mat-dialog-close type='button' color='warn'>
+      <mat-icon>close</mat-icon>
+        Cancel
+    </button>
+  </mat-dialog-actions>
+</div> 

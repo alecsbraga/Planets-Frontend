@@ -1,0 +1,36 @@
+<div class='container'>
+    <h2 mat-dialog-title>
+        {{titleLogin}}
+    </h2>
+      <mat-dialog-content>
+        <form [formGroup]='loginForm' novalidate appearance="fill" class="container">
+        <mat-form-field floatLabel='always'>
+            <mat-label>Username</mat-label>
+            <input matInput type='text' formControlName = username>
+            <mat-error *ngIf='usernameControl.hasError("required")'>
+              Required
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field floatLabel='always'>
+            <mat-label>Password</mat-label>
+            <input matInput type='password' formControlName = password>
+                <mat-error *ngIf='passwordControl.hasError("required")'>
+              Required
+            </mat-error>
+          </mat-form-field>
+        </form>
+    </mat-dialog-content>
+      <mat-dialog-actions class="button-group">
+        <button mat-raised-button type='button' color='primary' (click)='login()' [disabled]="loadingLogin" (keyup.enter)="login()">
+          <mat-icon *ngIf="loadingLogin === true"><mat-spinner color="primary" diameter="20">
+          </mat-spinner></mat-icon>
+          <mat-icon *ngIf="loadingLogin === false">arrow_forward</mat-icon>
+          Login
+        </button>
+        <button mat-stroked-button mat-dialog-close type='button' color='warn'>
+          <mat-icon>close</mat-icon>
+          Close
+        </button>
+      </mat-dialog-actions>
+   </div>
+ 

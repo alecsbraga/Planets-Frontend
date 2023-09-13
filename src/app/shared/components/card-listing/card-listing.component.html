@@ -1,0 +1,21 @@
+<mat-card>
+  <button (click)="onRowClick()">
+    <mat-card-content class="card">
+      <div class="card-header">
+        <div mat-card-avatar [ngStyle]="{'background-image': 'url('+planet.image+')',
+                                        'background-size': 'cover',
+                                        'margin-bottom': '-5px',
+                                        'margin-top' : '10px'}"></div>
+        <mat-card-title>{{planet.name}}</mat-card-title>
+      </div>
+      <div class="card-content">
+        <p>"{{planet.description}}"</p>
+        <p class="text-style-bold">By {{planet.lastCaptainUpdate}}</p>
+        <p class="text-style-bold">Robots: {{planet.robotsName}}</p>
+      </div>
+      <div>
+        <p class="card-status" [ngClass]="getClassOf(planet.status)" >{{planet.status}}</p>
+      </div>
+    </mat-card-content>
+  </button>
+</mat-card>
