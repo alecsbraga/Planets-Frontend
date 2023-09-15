@@ -31,7 +31,7 @@ export class TokenInterceptor implements HttpInterceptor {
       catchError((err:any)=>{
         if(err instanceof HttpErrorResponse){
           if(err.status === 401){
-            this.snackBar.open('Please login')
+            this.snackBar.open('Session expired, please login again!')
             this.captainService.logOut()
           }
         }
